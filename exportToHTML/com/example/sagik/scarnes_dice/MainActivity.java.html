@@ -1,0 +1,216 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,0,255); }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.example.sagik.scarnes_dice; 
+ 
+</span><span class="s0">import </span><span class="s1">android.annotation.SuppressLint; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.os.Build; 
+</span><span class="s0">import </span><span class="s1">android.os.Handler; 
+</span><span class="s0">import </span><span class="s1">android.support.annotation.RequiresApi; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageView; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.Random; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+ 
+    </span><span class="s0">private int </span><span class="s1">user_score=</span><span class="s2">0</span><span class="s1">; 
+    </span><span class="s0">private int </span><span class="s1">temp_score=</span><span class="s2">0</span><span class="s1">; 
+    </span><span class="s0">private int </span><span class="s1">comp_score=</span><span class="s2">0</span><span class="s1">; 
+    </span><span class="s0">private int </span><span class="s1">ctemp_score=</span><span class="s2">0</span><span class="s1">; 
+    Random r=</span><span class="s0">new </span><span class="s1">Random(); 
+    Button roll=</span><span class="s0">null</span><span class="s1">; 
+    Button hold=</span><span class="s0">null</span><span class="s1">; 
+    Button reset=</span><span class="s0">null</span><span class="s1">; 
+    </span><span class="s0">boolean </span><span class="s1">bot=</span><span class="s0">false</span><span class="s1">; 
+    TextView com_score=</span><span class="s0">null</span><span class="s1">; 
+    TextView usr_score=</span><span class="s0">null</span><span class="s1">; 
+    ImageView img=</span><span class="s0">null</span><span class="s1">; 
+    TextView turn_score=</span><span class="s0">null</span><span class="s1">; 
+    Context screen=</span><span class="s0">null</span><span class="s1">; 
+    </span><span class="s0">void </span><span class="s1">Block(View v) 
+    { 
+        v.setClickable(</span><span class="s0">false</span><span class="s1">); 
+        } 
+        </span><span class="s0">void  </span><span class="s1">UnBlock(View v) 
+        { 
+            v.setClickable(</span><span class="s0">true</span><span class="s1">); 
+        } 
+    Handler h=</span><span class="s0">new </span><span class="s1">Handler(); 
+        Runnable play=</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @SuppressLint(</span><span class="s3">&quot;NewApi&quot;</span><span class="s1">) 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+ 
+                </span><span class="s0">switch </span><span class="s1">(r.nextInt(</span><span class="s2">7</span><span class="s1">)) { 
+                    </span><span class="s0">case </span><span class="s2">1</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice1)); 
+                        temp_score=</span><span class="s2">0</span><span class="s1">; 
+                        bot = </span><span class="s0">false</span><span class="s1">; 
+                        UnBlock(roll); 
+                        UnBlock(hold); 
+                        comp_score+=temp_score; 
+                        temp_score=</span><span class="s2">0</span><span class="s1">; 
+                        com_score.setText(Integer.toString(comp_score)); 
+                        turn_score.setText(Integer.toString(temp_score)); 
+                        </span><span class="s0">break</span><span class="s1">; 
+                    </span><span class="s0">case </span><span class="s2">2</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice2)); 
+                        temp_score+=</span><span class="s2">2</span><span class="s1">; 
+                        </span><span class="s0">break</span><span class="s1">; 
+                    </span><span class="s0">case </span><span class="s2">3</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice3)); 
+                        temp_score+=</span><span class="s2">3</span><span class="s1">; 
+                        </span><span class="s0">break</span><span class="s1">; 
+                    </span><span class="s0">case </span><span class="s2">4</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice4)); 
+                        temp_score+=</span><span class="s2">4</span><span class="s1">; 
+                        </span><span class="s0">break</span><span class="s1">; 
+                    </span><span class="s0">case </span><span class="s2">5</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice5)); 
+                        temp_score+=</span><span class="s2">5</span><span class="s1">; 
+                        </span><span class="s0">break</span><span class="s1">; 
+                    </span><span class="s0">case </span><span class="s2">6</span><span class="s1">: 
+                        img.setImageDrawable(getDrawable(R.drawable.dice6)); 
+                        temp_score+=</span><span class="s2">6</span><span class="s1">; 
+                        </span><span class="s0">break</span><span class="s1">; 
+                } 
+                turn_score.setText(Integer.toString(temp_score)); 
+                </span><span class="s0">if</span><span class="s1">(temp_score+comp_score&gt;=</span><span class="s2">100</span><span class="s1">) 
+                { 
+                    reset.callOnClick(); 
+                    Toast.makeText(screen,</span><span class="s3">&quot;Bot wins...!&quot;</span><span class="s1">,Toast.LENGTH_LONG).show(); 
+                } 
+                </span><span class="s0">if </span><span class="s1">(temp_score&lt;</span><span class="s2">10 </span><span class="s1">&amp;&amp; bot==</span><span class="s0">true</span><span class="s1">) 
+                    h.postDelayed(</span><span class="s0">this</span><span class="s1">,</span><span class="s2">800</span><span class="s1">); 
+                </span><span class="s0">else </span><span class="s1">{ 
+                    bot = </span><span class="s0">false</span><span class="s1">; 
+                    UnBlock(roll); 
+                    UnBlock(hold); 
+                    comp_score+=temp_score; 
+                    temp_score=</span><span class="s2">0</span><span class="s1">; 
+                    com_score.setText(Integer.toString(comp_score)); 
+                    turn_score.setText(Integer.toString(temp_score)); 
+                } 
+            } 
+        }; 
+ 
+    </span><span class="s0">void </span><span class="s1">computer_turn() 
+    { 
+        Block(hold); 
+        Block(roll); 
+        bot=</span><span class="s0">true</span><span class="s1">; 
+        h.postDelayed(play,</span><span class="s2">800</span><span class="s1">); 
+        </span><span class="s4">//play.run();</span><span class="s1"> 
+ 
+ 
+    } 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+ 
+        hold= findViewById(R.id.hold); 
+        roll=findViewById(R.id.roll); 
+        reset=findViewById(R.id.reset); 
+        com_score=findViewById(R.id.comp_score); 
+        img=findViewById(R.id.imageView); 
+        usr_score=findViewById(R.id.user_score); 
+        com_score=findViewById(R.id.comp_score); 
+        turn_score=findViewById(R.id.turn_score); 
+        screen=</span><span class="s0">this</span><span class="s1">; 
+ 
+        roll.setOnClickListener( 
+                </span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+ 
+                        </span><span class="s0">switch </span><span class="s1">(r.nextInt(</span><span class="s2">7</span><span class="s1">)) { 
+                            </span><span class="s0">case </span><span class="s2">1</span><span class="s1">: 
+                            img.setImageDrawable(getDrawable(R.drawable.dice1)); 
+                            temp_score=</span><span class="s2">0</span><span class="s1">; 
+                            computer_turn(); 
+                            </span><span class="s0">break</span><span class="s1">; 
+                            </span><span class="s0">case </span><span class="s2">2</span><span class="s1">: 
+                                img.setImageDrawable(getDrawable(R.drawable.dice2)); 
+                                temp_score+=</span><span class="s2">2</span><span class="s1">; 
+                                </span><span class="s0">break</span><span class="s1">; 
+                            </span><span class="s0">case </span><span class="s2">3</span><span class="s1">: 
+                                img.setImageDrawable(getDrawable(R.drawable.dice3)); 
+                                temp_score+=</span><span class="s2">3</span><span class="s1">; 
+                                </span><span class="s0">break</span><span class="s1">; 
+                            </span><span class="s0">case </span><span class="s2">4</span><span class="s1">: 
+                                img.setImageDrawable(getDrawable(R.drawable.dice4)); 
+                                temp_score+=</span><span class="s2">4</span><span class="s1">; 
+                                </span><span class="s0">break</span><span class="s1">; 
+                            </span><span class="s0">case </span><span class="s2">5</span><span class="s1">: 
+                                img.setImageDrawable(getDrawable(R.drawable.dice5)); 
+                                temp_score+=</span><span class="s2">5</span><span class="s1">; 
+                                </span><span class="s0">break</span><span class="s1">; 
+                            </span><span class="s0">case </span><span class="s2">6</span><span class="s1">: 
+                                img.setImageDrawable(getDrawable(R.drawable.dice6)); 
+                                temp_score+=</span><span class="s2">6</span><span class="s1">; 
+                                </span><span class="s0">break</span><span class="s1">; 
+                        } 
+                        turn_score.setText(Integer.toString(temp_score)); 
+                    } 
+                } 
+        ); 
+ 
+        hold.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                user_score+=temp_score; 
+                </span><span class="s0">if</span><span class="s1">(user_score&gt;=</span><span class="s2">100</span><span class="s1">) 
+                { 
+                    reset.callOnClick(); 
+                    Toast.makeText(screen,</span><span class="s3">&quot;You win...!&quot;</span><span class="s1">,Toast.LENGTH_LONG).show(); 
+                } 
+                usr_score.setText(Integer.toString(user_score)); 
+                temp_score=</span><span class="s2">0</span><span class="s1">; 
+                turn_score.setText(Integer.toString(temp_score)); 
+                computer_turn(); 
+            } 
+        }); 
+ 
+        reset.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                user_score=</span><span class="s2">0</span><span class="s1">; 
+                comp_score=</span><span class="s2">0</span><span class="s1">; 
+                ctemp_score=</span><span class="s2">0</span><span class="s1">; 
+                temp_score=</span><span class="s2">0</span><span class="s1">; 
+                usr_score.setText(Integer.toString(user_score)); 
+                com_score.setText(Integer.toString(comp_score)); 
+                turn_score.setText(Integer.toString(temp_score)); 
+            } 
+        }); 
+    } 
+} 
+</span></pre>
+</body>
+</html>
